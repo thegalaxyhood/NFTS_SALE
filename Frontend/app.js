@@ -31,6 +31,39 @@ const web3Modal = new Web3Modal.default({
   providerOptions
 });
 
+
+// Force MetaMask to Polygon
+async function switchToPolygon() {
+  if (!window.ethereum) return;
+
+  try {
+    await window.ethereum.request({
+      method: "wallet_switchEthereumChain",
+      params: [{ chainId: polygonChainId }]
+    });
+  } catch (switchError) {
+    // If Polygon not added, add it
+    if (switchError.code === 4902) {
+      await window.ethereum.request({
+        method: "wallet_addEthereumChain",
+        params: [{
+          chainId: polygonChainId,
+          chainName: "Polygon Mainnet",
+          nativeCurrency: {
+            name: "MATIC",
+            symbol: "MATIC",
+            decimals: 18
+          },
+          rpcUrls: ["https://polygon-rpc.com"],
+          blockExplorerUrls: ["https://polygonscan.com"]
+        }]
+      });
+    } else {
+      throw switchError;
+    }
+  }
+}
+
 connectBtn.onclick = async () => {
   try {
     const instance = await web3Modal.connect();
