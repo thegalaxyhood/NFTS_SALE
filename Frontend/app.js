@@ -13,27 +13,6 @@ const abi = [
 let provider;
 let signer;
 
-connectBtn.onclick = async () => {
-  if (window.ethereum) {
-    try {
-      await ethereum.request({ method: "eth_requestAccounts" });
-
-      provider = new ethers.providers.Web3Provider(window.ethereum);
-      signer = provider.getSigner();
-
-      const address = await signer.getAddress();
-      statusText.innerText = "Connected: " + address;
-
-      validateNFT(address);
-
-    } catch (err) {
-      console.log(err);
-      statusText.innerText = "Connection failed";
-    }
-  } else {
-    alert("Install MetaMask");
-  }
-};
 
 async function validateNFT(address) {
   const contract = new ethers.Contract(contractAddress, abi, provider);
