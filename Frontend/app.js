@@ -23,7 +23,10 @@ const providerOptions = {
     }
   }
 };
-
+const web3Modal = new Web3Modal.default({
+  cacheProvider: false,
+  providerOptions
+});
 
 async function validateNFT(address) {
   const contract = new ethers.Contract(contractAddress, abi, provider);
