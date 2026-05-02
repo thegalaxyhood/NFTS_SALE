@@ -13,6 +13,17 @@ const abi = [
 let provider;
 let signer;
 
+const providerOptions = {
+  walletconnect: {
+    package: window.WalletConnectProvider,
+    options: {
+      rpc: {
+        137: "https://polygon-rpc.com" // Polygon network
+      }
+    }
+  }
+};
+
 
 async function validateNFT(address) {
   const contract = new ethers.Contract(contractAddress, abi, provider);
