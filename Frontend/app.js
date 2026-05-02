@@ -2,6 +2,9 @@ const connectBtn = document.getElementById("connectBtn");
 const downloadBtn = document.getElementById("downloadBtn");
 const statusText = document.getElementById("status");
 
+// Polygon config
+const polygonChainId = "0x89"; // 137 in hex
+
 // 👉 Replace with your NFT contract address
 const contractAddress = "0xYourNFTContractAddress";
 
