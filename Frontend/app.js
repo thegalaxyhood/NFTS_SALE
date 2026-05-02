@@ -28,6 +28,24 @@ const web3Modal = new Web3Modal.default({
   providerOptions
 });
 
+connectBtn.onclick = async () => {
+  try {
+    const instance = await web3Modal.connect();
+
+    const provider = new ethers.providers.Web3Provider(instance);
+    const signer = provider.getSigner();
+    const address = await signer.getAddress();
+
+    statusText.innerText = "Connected: " + address;
+
+    validateNFT(address);
+
+  } catch (err) {
+    console.error(err);
+    statusText.innerText = "Connection failed";
+  }
+};
+
 async function validateNFT(address) {
   const contract = new ethers.Contract(contractAddress, abi, provider);
 
